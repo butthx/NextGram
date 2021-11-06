@@ -1,5 +1,5 @@
 # NextGram
-NextGram is telegram userbot/bot library for google apps script. 
+NextGram is telegram userbot/bot library for google apps script.    
 Library Id : `1nw1kzidJBX1DkYPFucpuEhX7nXIFcwWbq_TZ-3L4EOYrXiCSNxpl3FyN`
 # Features 
 - Encrypted token 
