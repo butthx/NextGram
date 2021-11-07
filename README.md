@@ -27,3 +27,7 @@ bot.cmd("start",(ctx)=>{ //send /start message
 
 ```
 _move to NextGram now!_
+
+## Contribute
+Thanks you, I'm happy if you contribute to this project.
+There are no conditions available, just a pull request and I will deploy the library to the latest version.
