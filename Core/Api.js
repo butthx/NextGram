@@ -107,5 +107,34 @@ class Api {
   async get_webhook_info(){
     return this.call_api("getWebhookInfo");
   }
-  
+  /**
+   * Use this method to forward messages of any kind.
+   * @param {Number|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`) 
+   * @param {Number|String} from_chat_id - Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`) 
+   * @param {Number} message_id - Message identifier in the chat specified in *from\\_chat\\_id* 
+   * @param {Object} more - More parameters for forwardMessage. It must be a JSON object.
+  */
+  async forward_message(chat_id,from_chat_id,message_id,more){
+    return this.call_api("forwardMessage",{
+      chat_id : chat_id,
+      from_chat_id : from_chat_id,
+      message_id : message_id,
+      ...more
+    });
+  } 
+  /**
+   * Use this method to copy messages of any kind. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api/#forwardmessages), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success. 
+   * @param {Number|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`) 
+   * @param {Number|String} from_chat_id - Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`) 
+   * @param {Number} message_id - Message identifier in the chat specified in *from\\_chat\\_id* 
+   * @param {Object} more - More parameter for copyMessage. It must be a JSON object 
+  */
+  async copy_message(chat_id,from_chat_id,message_id,more){
+    return this.call_api("copyMessage",{
+      chat_id : chat_id,
+      from_chat_id : from_chat_id,
+      message_id : message_id,
+      ...more
+    })
+  }
 }
