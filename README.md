@@ -22,7 +22,7 @@ function set_webhook(){
   return bot.set_webhook("url deploy here") // run this function after deploying.
 }
 bot.cmd("start",(ctx)=>{ //send /start message
-  return ctx.telegram.sendMessage(ctx.messsage.chat.id,ctx)
+  return ctx.telegram.send_message(ctx.messsage.chat.id,ctx)
 })
 
 ```
