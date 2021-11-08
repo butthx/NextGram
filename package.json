@@ -1,0 +1,11 @@
+{
+  "name": "NextGram",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:butthx/NextGram",
+  "author": "butthx <tanya.duwi23@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
