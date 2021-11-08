@@ -1,8 +1,7 @@
 <center><b>NextGram</b></center></br>
----
-</br>_This docs is auto generate_</br>
+</br><i>This docs is auto generate</i></br>
 
-_Create At Mon, 08 Nov 2021 07:28:51 GMT_   
+_Create At Mon, 08 Nov 2021 07:33:09 GMT_   _Maybe some docs and function is broken._  
 ## user_login
 _*ONLY FOR USERS*
 

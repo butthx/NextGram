@@ -21,7 +21,8 @@ const fs = require("fs");
   text += `\nclass Api {\n`
   text += `constructor(token,loginAs){\n    MakePrivate(this,"token",encrypt(token));\n    MakePrivate(this,"loginAs",loginAs.toLowerCase());\n    if(this.loginAs == "bot"){\n      MakePrivate(this,"baseUrl","https://telegram.rest/bot");\n    } \n    if(this.loginAs ==  "user"){\n      MakePrivate(this,"baseUrl","https://telegram.rest/user");\n    }\n  }`;
   text += '\n/**\n   * Sending request to telegram.rest\n   * @param {String} method - Method name which available on telegram.rest\n   * @param {Object} body - Body parameters for sending request to telegram.rest\n  */\n  async call_api(method,body={}){\n    let fetch = await UrlFetchApp.fetch(\`${this.baseUrl}${decrypt(this.token)}/${method}\`,{\n      method : "POST",\n      payload : body\n    });\n    let json = JSON.parse(fetch); \n    if(json.ok){\n      return new Context(json.result,this);\n    }\n  } ';
-  let docs = `<center><b>NextGram</b></center></br>\n---\n</br>_This docs is auto generate_</br>\n\n_Create At ${new Date().toUTCString()}_   `;
+  let docs = `<center><b>NextGram</b></center></br>\n</br><i>This docs is auto generate</i></br>\n\n_Create At ${new Date().toUTCString()}_   `;
+  docs += `_Maybe some docs and function is broken._  `
   for(let props of Object.keys(functionList)){
     let functionName = camelToSnakeCase(props.replace("/","")); 
     console.log(new Date().toLocaleTimeString(),"-","Create Docs and Function - ",functionName); 
