@@ -21,7 +21,7 @@ const fs = require("fs");
   text += `\nclass Api {\n`
   text += `constructor(token,loginAs){\n    MakePrivate(this,"token",encrypt(token));\n    MakePrivate(this,"loginAs",loginAs.toLowerCase());\n    if(this.loginAs == "bot"){\n      MakePrivate(this,"baseUrl","https://telegram.rest/bot");\n    } \n    if(this.loginAs ==  "user"){\n      MakePrivate(this,"baseUrl","https://telegram.rest/user");\n    }\n  }`;
   text += '\n/**\n   * Sending request to telegram.rest\n   * @param {String} method - Method name which available on telegram.rest\n   * @param {Object} body - Body parameters for sending request to telegram.rest\n  */\n  async call_api(method,body={}){\n    let fetch = await UrlFetchApp.fetch(\`${this.baseUrl}${decrypt(this.token)}/${method}\`,{\n      method : "POST",\n      payload : body\n    });\n    let json = JSON.parse(fetch); \n    if(json.ok){\n      return new Context(json.result,this);\n    }\n  } ';
-  let docs = `<center><b>NextGram</b></center>   \n---\n   _This docs is auto generate_   \n_Create At ${new Date().toUTCString()}_   `;
+  let docs = `<center><b>NextGram</b></center></br>\n---\n</br>_This docs is auto generate_</br>\n\n_Create At ${new Date().toUTCString()}_   `;
   for(let props of Object.keys(functionList)){
     let functionName = camelToSnakeCase(props.replace("/","")); 
     console.log(new Date().toLocaleTimeString(),"-","Create Docs and Function - ",functionName); 
@@ -44,7 +44,7 @@ const fs = require("fs");
                 let m = Object.keys(properties)
                 let more = m.length > required.length ? ",more" : ""
                 let k = [] 
-                let cm = `\n/**\n*${desc}` 
+                let cm = `\n/**\n*${desc.replace(/\n/gm,"\n*")}` 
                 docs += `\n\`\`\`javascript\n ctx.telegram.${functionName}(${required.join(",")}${more})\n\`\`\`   `
                 required.forEach((el)=>{
                   k.push(`"${el}" : ${el}`); 
@@ -91,7 +91,7 @@ const fs = require("fs");
       }
     }
   }
-  text += `\n}`;
+  text += `\n}`
   console.log(new Date().toLocaleTimeString(),"-","Creating file"); 
   fs.writeFileSync("./Core/Api.js",text);
   fs.writeFileSync("./Docs.md",docs);
