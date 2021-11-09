@@ -55,7 +55,7 @@ const fs = require('fs');
                   if (el == 'chat_id') {
                     k.push(`"${el}" : String(${el})`);
                   } else {
-                    k.push(`"el}" : ${el}`);
+                    k.push(`"${el}" : ${el}`);
                   }
                   let type = properties[el]['type'] || properties[el]['anyOf'];
                   if (typeof type == 'string') {

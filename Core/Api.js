@@ -5,7 +5,7 @@
 // It under the terms of the MIT License as published.
 
 // This file is auto generate
-// Create At Tue, 09 Nov 2021 08:57:32 GMT
+// Create At Tue, 09 Nov 2021 09:12:16 GMT
 
 class Api {
   constructor(token, loginAs) {
@@ -42,7 +42,7 @@ class Api {
    */
   async user_login(phone_number) {
     return this.call_api('userLogin', {
-      'el}': phone_number,
+      phone_number: phone_number,
     });
   }
 
@@ -52,7 +52,7 @@ class Api {
    */
   async auth_code(code) {
     return this.call_api('authCode', {
-      'el}': code,
+      code: code,
     });
   }
 
@@ -63,7 +63,7 @@ class Api {
    */
   async auth_password(password) {
     return this.call_api('authPassword', {
-      'el}': password,
+      password: password,
     });
   }
 
@@ -75,7 +75,7 @@ class Api {
    */
   async register_user(first_name, more) {
     return this.call_api('registerUser', {
-      'el}': first_name,
+      first_name: first_name,
       ...more,
     });
   }
@@ -95,7 +95,7 @@ class Api {
   async get_message_info(chat_id, message_id) {
     return this.call_api('getMessageInfo', {
       chat_id: String(chat_id),
-      'el}': message_id,
+      message_id: message_id,
     });
   }
 
@@ -126,8 +126,8 @@ class Api {
   async delete_messages(chat_id, start, end) {
     return this.call_api('deleteMessages', {
       chat_id: String(chat_id),
-      'el}': start,
-      'el}': end,
+      start: start,
+      end: end,
     });
   }
 
@@ -153,7 +153,7 @@ class Api {
    */
   async get_common_chats(user_id, more) {
     return this.call_api('getCommonChats', {
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }
@@ -173,8 +173,8 @@ class Api {
    */
   async get_nearby_chats(latitude, longitude, more) {
     return this.call_api('getNearbyChats', {
-      'el}': latitude,
-      'el}': longitude,
+      latitude: latitude,
+      longitude: longitude,
       ...more,
     });
   }
@@ -185,7 +185,7 @@ class Api {
    */
   async search_public_chats(query) {
     return this.call_api('searchPublicChats', {
-      'el}': query,
+      query: query,
     });
   }
 
@@ -198,8 +198,8 @@ class Api {
   async set_poll_answer(chat_id, message_id, option_ids) {
     return this.call_api('setPollAnswer', {
       chat_id: String(chat_id),
-      'el}': message_id,
-      'el}': option_ids,
+      message_id: message_id,
+      option_ids: option_ids,
     });
   }
 
@@ -220,7 +220,7 @@ class Api {
   async add_chat_member(chat_id, user_id) {
     return this.call_api('addChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
+      user_id: user_id,
     });
   }
 
@@ -233,7 +233,7 @@ class Api {
   async report_chat(chat_id, reason, more) {
     return this.call_api('reportChat', {
       chat_id: String(chat_id),
-      'el}': reason,
+      reason: reason,
       ...more,
     });
   }
@@ -246,8 +246,8 @@ class Api {
    */
   async create_chat(title, type, more) {
     return this.call_api('createChat', {
-      'el}': title,
-      'el}': type,
+      title: title,
+      type: type,
       ...more,
     });
   }
@@ -259,7 +259,7 @@ class Api {
    */
   async search_messages(query, more) {
     return this.call_api('searchMessages', {
-      'el}': query,
+      query: query,
       ...more,
     });
   }
@@ -273,7 +273,7 @@ class Api {
   async search_chat_messages(chat_id, query, more) {
     return this.call_api('searchChatMessages', {
       chat_id: String(chat_id),
-      'el}': query,
+      query: query,
       ...more,
     });
   }
@@ -287,8 +287,8 @@ class Api {
   async get_callback_query_answer(chat_id, message_id, callback_data) {
     return this.call_api('getCallbackQueryAnswer', {
       chat_id: String(chat_id),
-      'el}': message_id,
-      'el}': callback_data,
+      message_id: message_id,
+      callback_data: callback_data,
     });
   }
 
@@ -323,7 +323,7 @@ class Api {
   async edit_message_scheduling(chat_id, message_id, more) {
     return this.call_api('editMessageScheduling', {
       chat_id: String(chat_id),
-      'el}': message_id,
+      message_id: message_id,
       ...more,
     });
   }
@@ -344,9 +344,9 @@ class Api {
    */
   async add_proxy(server, port, type, more) {
     return this.call_api('addProxy', {
-      'el}': server,
-      'el}': port,
-      'el}': type,
+      server: server,
+      port: port,
+      type: type,
       ...more,
     });
   }
@@ -357,7 +357,7 @@ class Api {
    */
   async delete_proxy(proxy_id) {
     return this.call_api('deleteProxy', {
-      'el}': proxy_id,
+      proxy_id: proxy_id,
     });
   }
 
@@ -367,7 +367,7 @@ class Api {
    */
   async enable_proxy(proxy_id) {
     return this.call_api('enableProxy', {
-      'el}': proxy_id,
+      proxy_id: proxy_id,
     });
   }
 
@@ -377,7 +377,7 @@ class Api {
    */
   async disable_proxy(proxy_id) {
     return this.call_api('disableProxy', {
-      'el}': proxy_id,
+      proxy_id: proxy_id,
     });
   }
 
@@ -397,7 +397,7 @@ class Api {
    */
   async set_webhook(url, more) {
     return this.call_api('setWebhook', {
-      'el}': url,
+      url: url,
       ...more,
     });
   }
@@ -462,7 +462,7 @@ class Api {
     }
     return this.call_api('sendMessage', {
       chat_id: String(chat_id),
-      'el}': text,
+      text: text,
       ...more,
     });
   }
@@ -477,8 +477,8 @@ class Api {
   async forward_message(chat_id, from_chat_id, message_id, more) {
     return this.call_api('forwardMessage', {
       chat_id: String(chat_id),
-      'el}': from_chat_id,
-      'el}': message_id,
+      from_chat_id: from_chat_id,
+      message_id: message_id,
       ...more,
     });
   }
@@ -493,8 +493,8 @@ class Api {
   async copy_message(chat_id, from_chat_id, message_id, more) {
     return this.call_api('copyMessage', {
       chat_id: String(chat_id),
-      'el}': from_chat_id,
-      'el}': message_id,
+      from_chat_id: from_chat_id,
+      message_id: message_id,
       ...more,
     });
   }
@@ -508,7 +508,7 @@ class Api {
   async send_photo(chat_id, photo, more) {
     return this.call_api('sendPhoto', {
       chat_id: String(chat_id),
-      'el}': photo,
+      photo: photo,
       ...more,
     });
   }
@@ -523,7 +523,7 @@ class Api {
   async send_audio(chat_id, audio, more) {
     return this.call_api('sendAudio', {
       chat_id: String(chat_id),
-      'el}': audio,
+      audio: audio,
       ...more,
     });
   }
@@ -537,7 +537,7 @@ class Api {
   async send_document(chat_id, document, more) {
     return this.call_api('sendDocument', {
       chat_id: String(chat_id),
-      'el}': document,
+      document: document,
       ...more,
     });
   }
@@ -551,7 +551,7 @@ class Api {
   async send_video(chat_id, video, more) {
     return this.call_api('sendVideo', {
       chat_id: String(chat_id),
-      'el}': video,
+      video: video,
       ...more,
     });
   }
@@ -565,7 +565,7 @@ class Api {
   async send_animation(chat_id, animation, more) {
     return this.call_api('sendAnimation', {
       chat_id: String(chat_id),
-      'el}': animation,
+      animation: animation,
       ...more,
     });
   }
@@ -579,7 +579,7 @@ class Api {
   async send_voice(chat_id, voice, more) {
     return this.call_api('sendVoice', {
       chat_id: String(chat_id),
-      'el}': voice,
+      voice: voice,
       ...more,
     });
   }
@@ -593,7 +593,7 @@ class Api {
   async send_video_note(chat_id, video_note, more) {
     return this.call_api('sendVideoNote', {
       chat_id: String(chat_id),
-      'el}': video_note,
+      video_note: video_note,
       ...more,
     });
   }
@@ -607,7 +607,7 @@ class Api {
   async send_media_group(chat_id, media, more) {
     return this.call_api('sendMediaGroup', {
       chat_id: String(chat_id),
-      'el}': media,
+      media: media,
       ...more,
     });
   }
@@ -622,8 +622,8 @@ class Api {
   async send_location(chat_id, latitude, longitude, more) {
     return this.call_api('sendLocation', {
       chat_id: String(chat_id),
-      'el}': latitude,
-      'el}': longitude,
+      latitude: latitude,
+      longitude: longitude,
       ...more,
     });
   }
@@ -636,8 +636,8 @@ class Api {
    */
   async edit_message_live_location(latitude, longitude, more) {
     return this.call_api('editMessageLiveLocation', {
-      'el}': latitude,
-      'el}': longitude,
+      latitude: latitude,
+      longitude: longitude,
       ...more,
     });
   }
@@ -662,10 +662,10 @@ class Api {
   async send_venue(chat_id, latitude, longitude, title, address, more) {
     return this.call_api('sendVenue', {
       chat_id: String(chat_id),
-      'el}': latitude,
-      'el}': longitude,
-      'el}': title,
-      'el}': address,
+      latitude: latitude,
+      longitude: longitude,
+      title: title,
+      address: address,
       ...more,
     });
   }
@@ -680,8 +680,8 @@ class Api {
   async send_contact(chat_id, phone_number, first_name, more) {
     return this.call_api('sendContact', {
       chat_id: String(chat_id),
-      'el}': phone_number,
-      'el}': first_name,
+      phone_number: phone_number,
+      first_name: first_name,
       ...more,
     });
   }
@@ -696,8 +696,8 @@ class Api {
   async send_poll(chat_id, question, options, more) {
     return this.call_api('sendPoll', {
       chat_id: String(chat_id),
-      'el}': question,
-      'el}': options,
+      question: question,
+      options: options,
       ...more,
     });
   }
@@ -724,7 +724,7 @@ class Api {
   async send_chat_action(chat_id, action) {
     return this.call_api('sendChatAction', {
       chat_id: String(chat_id),
-      'el}': action,
+      action: action,
     });
   }
 
@@ -735,7 +735,7 @@ class Api {
    */
   async get_user_profile_photos(user_id, more) {
     return this.call_api('getUserProfilePhotos', {
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }
@@ -746,7 +746,7 @@ class Api {
    */
   async get_file(file_id) {
     return this.call_api('getFile', {
-      'el}': file_id,
+      file_id: file_id,
     });
   }
 
@@ -759,7 +759,7 @@ class Api {
   async kick_chat_member(chat_id, user_id, more) {
     return this.call_api('kickChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }
@@ -773,7 +773,7 @@ class Api {
   async unban_chat_member(chat_id, user_id, more) {
     return this.call_api('unbanChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }
@@ -788,8 +788,8 @@ class Api {
   async restrict_chat_member(chat_id, user_id, permissions, more) {
     return this.call_api('restrictChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
-      'el}': permissions,
+      user_id: user_id,
+      permissions: permissions,
       ...more,
     });
   }
@@ -803,7 +803,7 @@ class Api {
   async promote_chat_member(chat_id, user_id, more) {
     return this.call_api('promoteChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }
@@ -817,8 +817,8 @@ class Api {
   async set_chat_administrator_custom_title(chat_id, user_id, custom_title) {
     return this.call_api('setChatAdministratorCustomTitle', {
       chat_id: String(chat_id),
-      'el}': user_id,
-      'el}': custom_title,
+      user_id: user_id,
+      custom_title: custom_title,
     });
   }
 
@@ -830,7 +830,7 @@ class Api {
   async set_chat_permissions(chat_id, permissions) {
     return this.call_api('setChatPermissions', {
       chat_id: String(chat_id),
-      'el}': permissions,
+      permissions: permissions,
     });
   }
 
@@ -852,7 +852,7 @@ class Api {
   async set_chat_photo(chat_id, photo) {
     return this.call_api('setChatPhoto', {
       chat_id: String(chat_id),
-      'el}': photo,
+      photo: photo,
     });
   }
 
@@ -874,7 +874,7 @@ class Api {
   async set_chat_title(chat_id, title) {
     return this.call_api('setChatTitle', {
       chat_id: String(chat_id),
-      'el}': title,
+      title: title,
     });
   }
 
@@ -899,7 +899,7 @@ class Api {
   async pin_chat_message(chat_id, message_id, more) {
     return this.call_api('pinChatMessage', {
       chat_id: String(chat_id),
-      'el}': message_id,
+      message_id: message_id,
       ...more,
     });
   }
@@ -974,7 +974,7 @@ class Api {
   async get_chat_member(chat_id, user_id) {
     return this.call_api('getChatMember', {
       chat_id: String(chat_id),
-      'el}': user_id,
+      user_id: user_id,
     });
   }
 
@@ -986,7 +986,7 @@ class Api {
   async set_chat_sticker_set(chat_id, sticker_set_name) {
     return this.call_api('setChatStickerSet', {
       chat_id: String(chat_id),
-      'el}': sticker_set_name,
+      sticker_set_name: sticker_set_name,
     });
   }
 
@@ -1008,7 +1008,7 @@ class Api {
    */
   async answer_callback_query(callback_query_id, more) {
     return this.call_api('answerCallbackQuery', {
-      'el}': callback_query_id,
+      callback_query_id: callback_query_id,
       ...more,
     });
   }
@@ -1019,7 +1019,7 @@ class Api {
    */
   async set_my_commands(commands) {
     return this.call_api('setMyCommands', {
-      'el}': commands,
+      commands: commands,
     });
   }
 
@@ -1052,7 +1052,7 @@ class Api {
       }
     }
     return this.call_api('editMessageText', {
-      'el}': text,
+      text: text,
       ...more,
     });
   }
@@ -1072,7 +1072,7 @@ class Api {
    */
   async edit_message_media(media, more) {
     return this.call_api('editMessageMedia', {
-      'el}': media,
+      media: media,
       ...more,
     });
   }
@@ -1094,7 +1094,7 @@ class Api {
   async stop_poll(chat_id, message_id, more) {
     return this.call_api('stopPoll', {
       chat_id: String(chat_id),
-      'el}': message_id,
+      message_id: message_id,
       ...more,
     });
   }
@@ -1115,7 +1115,7 @@ class Api {
   async delete_message(chat_id, message_id) {
     return this.call_api('deleteMessage', {
       chat_id: String(chat_id),
-      'el}': message_id,
+      message_id: message_id,
     });
   }
 
@@ -1128,7 +1128,7 @@ class Api {
   async send_sticker(chat_id, sticker, more) {
     return this.call_api('sendSticker', {
       chat_id: String(chat_id),
-      'el}': sticker,
+      sticker: sticker,
       ...more,
     });
   }
@@ -1139,7 +1139,7 @@ class Api {
    */
   async get_sticker_set(name) {
     return this.call_api('getStickerSet', {
-      'el}': name,
+      name: name,
     });
   }
 
@@ -1150,8 +1150,8 @@ class Api {
    */
   async upload_sticker_file(user_id, png_sticker) {
     return this.call_api('uploadStickerFile', {
-      'el}': user_id,
-      'el}': png_sticker,
+      user_id: user_id,
+      png_sticker: png_sticker,
     });
   }
 
@@ -1165,10 +1165,10 @@ class Api {
    */
   async create_new_sticker_set(user_id, name, title, emojis, more) {
     return this.call_api('createNewStickerSet', {
-      'el}': user_id,
-      'el}': name,
-      'el}': title,
-      'el}': emojis,
+      user_id: user_id,
+      name: name,
+      title: title,
+      emojis: emojis,
       ...more,
     });
   }
@@ -1182,9 +1182,9 @@ class Api {
    */
   async add_sticker_to_set(user_id, name, emojis, more) {
     return this.call_api('addStickerToSet', {
-      'el}': user_id,
-      'el}': name,
-      'el}': emojis,
+      user_id: user_id,
+      name: name,
+      emojis: emojis,
       ...more,
     });
   }
@@ -1196,8 +1196,8 @@ class Api {
    */
   async set_sticker_position_in_set(sticker, position) {
     return this.call_api('setStickerPositionInSet', {
-      'el}': sticker,
-      'el}': position,
+      sticker: sticker,
+      position: position,
     });
   }
 
@@ -1207,7 +1207,7 @@ class Api {
    */
   async delete_sticker_from_set(sticker) {
     return this.call_api('deleteStickerFromSet', {
-      'el}': sticker,
+      sticker: sticker,
     });
   }
 
@@ -1219,8 +1219,8 @@ class Api {
    */
   async set_sticker_set_thumb(name, user_id, more) {
     return this.call_api('setStickerSetThumb', {
-      'el}': name,
-      'el}': user_id,
+      name: name,
+      user_id: user_id,
       ...more,
     });
   }
@@ -1234,8 +1234,8 @@ class Api {
    */
   async answer_inline_query(inline_query_id, results, more) {
     return this.call_api('answerInlineQuery', {
-      'el}': inline_query_id,
-      'el}': results,
+      inline_query_id: inline_query_id,
+      results: results,
       ...more,
     });
   }
@@ -1265,13 +1265,13 @@ class Api {
   ) {
     return this.call_api('sendInvoice', {
       chat_id: String(chat_id),
-      'el}': title,
-      'el}': description,
-      'el}': payload,
-      'el}': provider_token,
-      'el}': start_parameter,
-      'el}': currency,
-      'el}': prices,
+      title: title,
+      description: description,
+      payload: payload,
+      provider_token: provider_token,
+      start_parameter: start_parameter,
+      currency: currency,
+      prices: prices,
       ...more,
     });
   }
@@ -1284,8 +1284,8 @@ class Api {
    */
   async answer_shipping_query(shipping_query_id, ok, more) {
     return this.call_api('answerShippingQuery', {
-      'el}': shipping_query_id,
-      'el}': ok,
+      shipping_query_id: shipping_query_id,
+      ok: ok,
       ...more,
     });
   }
@@ -1298,8 +1298,8 @@ class Api {
    */
   async answer_pre_checkout_query(pre_checkout_query_id, ok, more) {
     return this.call_api('answerPreCheckoutQuery', {
-      'el}': pre_checkout_query_id,
-      'el}': ok,
+      pre_checkout_query_id: pre_checkout_query_id,
+      ok: ok,
       ...more,
     });
   }
@@ -1312,8 +1312,8 @@ class Api {
    */
   async set_passport_data_errors(user_id, errors) {
     return this.call_api('setPassportDataErrors', {
-      'el}': user_id,
-      'el}': errors,
+      user_id: user_id,
+      errors: errors,
     });
   }
 
@@ -1326,7 +1326,7 @@ class Api {
   async send_game(chat_id, game_short_name, more) {
     return this.call_api('sendGame', {
       chat_id: String(chat_id),
-      'el}': game_short_name,
+      game_short_name: game_short_name,
       ...more,
     });
   }
@@ -1339,8 +1339,8 @@ class Api {
    */
   async set_game_score(user_id, score, more) {
     return this.call_api('setGameScore', {
-      'el}': user_id,
-      'el}': score,
+      user_id: user_id,
+      score: score,
       ...more,
     });
   }
@@ -1353,7 +1353,7 @@ class Api {
    */
   async get_game_high_scores(user_id, more) {
     return this.call_api('getGameHighScores', {
-      'el}': user_id,
+      user_id: user_id,
       ...more,
     });
   }

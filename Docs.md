@@ -1,7 +1,7 @@
 <center><b>NextGram</b></center></br>
 </br><i>This docs is auto generate</i></br>
 
-<i>Create At Tue, 09 Nov 2021 08:57:32 GMT</i>   <i>Maybe some docs and fun is broken.</i>  
+<i>Create At Tue, 09 Nov 2021 09:12:16 GMT</i>   <i>Maybe some docs and fun is broken.</i>  
 ## user_login
 <i>*ONLY FOR USERS*
 

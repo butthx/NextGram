@@ -33,7 +33,7 @@ function Message(msg, api) {
   };
   Object.setPrototypeOf(res, Prototype);
   if (res.reply_to_message) {
-    res.reply_to_message = Message(res.reply_to_message, api);
+    MakePrivate(res, 'reply_to_message', Message(res.reply_to_message, api));
   }
   return res;
 }
