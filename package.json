@@ -5,6 +5,9 @@
   "repository": "git@github.com:butthx/NextGram",
   "author": "butthx <tanya.duwi23@gmail.com>",
   "license": "MIT",
+  "scripts" : {
+    "prettier" : "prettier -w ./**/**.js"
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "prettier": "^2.4.1"

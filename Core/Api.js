@@ -5,16 +5,17 @@
 // It under the terms of the MIT License as published.
 
 // This file is auto generate
+// Create At Tue, 09 Nov 2021 08:57:32 GMT
 
 class Api {
   constructor(token, loginAs) {
-    MakePrivate(this, "token", encrypt(token));
-    MakePrivate(this, "loginAs", loginAs.toLowerCase());
-    if (this.loginAs == "bot") {
-      MakePrivate(this, "baseUrl", "https://telegram.rest/bot");
+    MakePrivate(this, 'token', encrypt(token));
+    MakePrivate(this, 'loginAs', loginAs.toLowerCase());
+    if (this.loginAs == 'bot') {
+      MakePrivate(this, 'baseUrl', 'https://telegram.rest/bot');
     }
-    if (this.loginAs == "user") {
-      MakePrivate(this, "baseUrl", "https://telegram.rest/user");
+    if (this.loginAs == 'user') {
+      MakePrivate(this, 'baseUrl', 'https://telegram.rest/user');
     }
   }
   /**
@@ -23,13 +24,10 @@ class Api {
    * @param {Object} body - Body parameters for sending request to telegram.rest
    */
   async call_api(method, body = {}) {
-    let fetch = await UrlFetchApp.fetch(
-      `${this.baseUrl}${decrypt(this.token)}/${method}`,
-      {
-        method: "POST",
-        payload: body,
-      }
-    );
+    let fetch = await UrlFetchApp.fetch(`${this.baseUrl}${decrypt(this.token)}/${method}`, {
+      method: 'POST',
+      payload: body,
+    });
     let json = JSON.parse(fetch);
     if (json.ok) {
       return new Context(json.result, this);
@@ -37,61 +35,56 @@ class Api {
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Use this method to receive the authorization token to log in as user.
-   *
+   **ONLY FOR USERS*Use this method to receive the authorization token to log in as user.
    *Note: You don't have your token yet, so the domain is just {base_url}/userLogin
-   *
    *Returns an `AuthorizationState` with the user token on success.
    *@param {String} phone_number - Your phone number to log in.
    */
   async user_login(phone_number) {
-    return this.call_api("userLogin", {
-      phone_number: phone_number,
+    return this.call_api('userLogin', {
+      'el}': phone_number,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Use this method in the authorization process to check your authentication code. Returns an `AuthorizationState` on success.
+   **ONLY FOR USERS*Use this method in the authorization process to check your authentication code. Returns an `AuthorizationState` on success.
    *@param {Integer} code - The verification code received via SMS, Telegram message, phone call, or flash call.
    */
   async auth_code(code) {
-    return this.call_api("authCode", {
-      code: code,
+    return this.call_api('authCode', {
+      'el}': code,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Use this method in the authorization process to check your 2-factor-authorization password for correctness. Returns an `AuthorizationState` on success.
-   *
+   **ONLY FOR USERS*Use this method in the authorization process to check your 2-factor-authorization password for correctness. Returns an `AuthorizationState` on success.
    **Never* send your password over a plain http connection. Make sure https is enabled or use this API locally.
    *@param {String} password - The password to check.
    */
   async auth_password(password) {
-    return this.call_api("authPassword", {
-      password: password,
+    return this.call_api('authPassword', {
+      'el}': password,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Use this method to register a new user account. Only works after sending the authcode if the user is not yet registered. Returns an `AuthorizationState` on success.
-   *
+   **ONLY FOR USERS*Use this method to register a new user account. Only works after sending the authcode if the user is not yet registered. Returns an `AuthorizationState` on success.
    *User registration is disabled by default. You can enable it with the `--allow-users-registration` command line option or the env variable `TELEGRAM_ALLOW_USERS_REGISTRATION` set to `1` when using docker.s
    *@param {String} first_name - The first name of the user; 1-64 characters.
    * @param {Object} more - register_user more params
    */
   async register_user(first_name, more) {
-    return this.call_api("registerUser", {
-      first_name: first_name,
+    return this.call_api('registerUser', {
+      'el}': first_name,
       ...more,
     });
+  }
+
+  /**
+   *Calling `optimizeMemory` will remove old data from the in-memory cache and give the freed memory back to the os. Returns *True* on success.
+   */
+  async optimize_memory() {
+    return this.call_api('optimizeMemory');
   }
 
   /**
@@ -100,22 +93,21 @@ class Api {
    *@param {Integer} message_id - Message identifier in the chat specified in *from\_chat\_id*
    */
   async get_message_info(chat_id, message_id) {
-    return this.call_api("getMessageInfo", {
-      chat_id: chat_id,
-      message_id: message_id,
+    return this.call_api('getMessageInfo', {
+      chat_id: String(chat_id),
+      'el}': message_id,
     });
   }
 
   /**
    *Use this method to get a list of members in a chat. On success, returns an Array of [ChatMember](https://core.telegram.org/bots/api/#chatmember) objects that contains information about all chat members. Administrator privileges may be required for some filters.
-   *
    *Telegram only returns up to 10,000 members per group using this method. If you want to get more members, you can try to fetch additional users with different `query` parameters
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    * @param {Object} more - get_chat_members more params
    */
   async get_chat_members(chat_id, more) {
-    return this.call_api("getChatMembers", {
-      chat_id: chat_id,
+    return this.call_api('getChatMembers', {
+      chat_id: String(chat_id),
       ...more,
     });
   }
@@ -126,211 +118,221 @@ class Api {
    *Both start and end must be positive non zero numbers
    *The method will always return true as a result, even if the messages cannot be deleted
    *This method does not work on private chat or normal groups It is not suggested to delete more than 200 messages per call.
-   *
-   **NOTE*
-   *The maximum number of messages to be deleted in a single batch is determined by the max-batch-operations parameter and is 10000 by default.
+   **NOTE*The maximum number of messages to be deleted in a single batch is determined by the max-batch-operations parameter and is 10000 by default.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {Integer} start - First message id to delete
    *@param {Integer} end - Last message id to delete
    */
   async delete_messages(chat_id, start, end) {
-    return this.call_api("deleteMessages", {
-      chat_id: chat_id,
-      start: start,
-      end: end,
+    return this.call_api('deleteMessages', {
+      chat_id: String(chat_id),
+      'el}': start,
+      'el}': end,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Returns list of chats you have in commen with the other user. Currently returns an Error because of a tdlight bug. For optimal performance the number of returned chats is chosen by the library.
+   *Send an MTProto ping message to the telegram servers. Useful to detect the delay of the bot api server. Returns the time in seconds as double-precision floating-point number.
+   */
+  async ping() {
+    return this.call_api('ping');
+  }
+
+  /**
+   **ONLY FOR USERS*Returns an ordered list of chats. For optimal performance the number of returned chats is chosen by the library.
+   * @param {Object} more - get_chats more params
+   */
+  async get_chats(more) {
+    return this.call_api('getChats', more);
+  }
+
+  /**
+   **ONLY FOR USERS*Returns list of chats you have in commen with the other user. Currently returns an Error because of a tdlight bug. For optimal performance the number of returned chats is chosen by the library.
    *@param {Integer} user_id - Unique identifier of the target user
    * @param {Object} more - get_common_chats more params
    */
   async get_common_chats(user_id, more) {
-    return this.call_api("getCommonChats", {
-      user_id: user_id,
+    return this.call_api('getCommonChats', {
+      'el}': user_id,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Returns a list of chats nearby the specified location. Telegram may send old results if you change your location too quick.
+   **ONLY FOR USERS*Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error.
+   */
+  async get_inactive_chats() {
+    return this.call_api('getInactiveChats');
+  }
+
+  /**
+   **ONLY FOR USERS*Returns a list of chats nearby the specified location. Telegram may send old results if you change your location too quick.
    *@param {Number} latitude - Latitude of the location
    *@param {Number} longitude - Longitude of the location
    * @param {Object} more - get_nearby_chats more params
    */
   async get_nearby_chats(latitude, longitude, more) {
-    return this.call_api("getNearbyChats", {
-      latitude: latitude,
-      longitude: longitude,
+    return this.call_api('getNearbyChats', {
+      'el}': latitude,
+      'el}': longitude,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Returns nothing if the length of the searched username prefix is less than 5. Excludes private chats with contacts and chats from the chat list from the results.
+   **ONLY FOR USERS*Searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Returns nothing if the length of the searched username prefix is less than 5. Excludes private chats with contacts and chats from the chat list from the results.
    *@param {String} query - Query to search for.
    */
   async search_public_chats(query) {
-    return this.call_api("searchPublicChats", {
-      query: query,
+    return this.call_api('searchPublicChats', {
+      'el}': query,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Changes the user answer to a poll. A poll in quiz mode can be answered only once. Send an empty array of `option_ids` to retract your vote.
+   **ONLY FOR USERS*Changes the user answer to a poll. A poll in quiz mode can be answered only once. Send an empty array of `option_ids` to retract your vote.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {Integer} message_id - Identifier of the message containing the poll.
    *@param {Array} option_ids - 0-based identifiers of answer options, chosen by the user. User can choose more than 1 answer option only is the poll allows multiple answers.
    */
   async set_poll_answer(chat_id, message_id, option_ids) {
-    return this.call_api("setPollAnswer", {
-      chat_id: chat_id,
-      message_id: message_id,
-      option_ids: option_ids,
+    return this.call_api('setPollAnswer', {
+      chat_id: String(chat_id),
+      'el}': message_id,
+      'el}': option_ids,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Adds a new member to a chat. Members can't be added to private or secret chats.  Returns `true` on success.
+   **ONLY FOR USERS*Adds current user as a new member to a chat. Private and secret chats can't be joined using this method. Join either by chat_id or by invite_link
+   *Returns `True` on success.
+   * @param {Object} more - join_chat more params
+   */
+  async join_chat(more) {
+    return this.call_api('joinChat', more);
+  }
+
+  /**
+   **ONLY FOR USERS*Adds a new member to a chat. Members can't be added to private or secret chats.  Returns `true` on success.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    *@param {Integer} user_id - Unique identifier of the target user
    */
   async add_chat_member(chat_id, user_id) {
-    return this.call_api("addChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
+    return this.call_api('addChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chats with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+   **ONLY FOR USERS*Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chats with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    *@param {String} reason - The reason for reporting the chat. Can be one of `child_abuse`, `copyright`, `pornography`, `spam`, `unrelated_location`, `violence` or any custom string to send a custom reason
    * @param {Object} more - report_chat more params
    */
   async report_chat(chat_id, reason, more) {
-    return this.call_api("reportChat", {
-      chat_id: chat_id,
-      reason: reason,
+    return this.call_api('reportChat', {
+      chat_id: String(chat_id),
+      'el}': reason,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Creates a new group, supergroup or channel. Returns the newly created chat.
+   **ONLY FOR USERS*Creates a new group, supergroup or channel. Returns the newly created chat.
    *@param {String} title - Title of the new chat; 1-128 characters.
    *@param {String} type - Type of the new chat, must be any of `group`, `supergroup` or `channel`
    * @param {Object} more - create_chat more params
    */
   async create_chat(title, type, more) {
-    return this.call_api("createChat", {
-      title: title,
-      type: type,
+    return this.call_api('createChat', {
+      'el}': title,
+      'el}': type,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). For optimal performance the number of returned messages is chosen by the library.
+   **ONLY FOR USERS*Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). For optimal performance the number of returned messages is chosen by the library.
    *@param {String} query - Query to search for.
    * @param {Object} more - search_messages more params
    */
   async search_messages(query, more) {
-    return this.call_api("searchMessages", {
-      query: query,
+    return this.call_api('searchMessages', {
+      'el}': query,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. For optimal performance the number of returned messages is chosen by the library.
+   **ONLY FOR USERS*Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. For optimal performance the number of returned messages is chosen by the library.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    *@param {String} query - Query to search for.
    * @param {Object} more - search_chat_messages more params
    */
   async search_chat_messages(chat_id, query, more) {
-    return this.call_api("searchChatMessages", {
-      chat_id: chat_id,
-      query: query,
+    return this.call_api('searchChatMessages', {
+      chat_id: String(chat_id),
+      'el}': query,
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Sends a callback query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
+   **ONLY FOR USERS*Sends a callback query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {Integer} message_id - Message identifier in the chat specified in *from\_chat\_id*
    *@param {String} callback_data - Data that was attached to the callback button.
    */
   async get_callback_query_answer(chat_id, message_id, callback_data) {
-    return this.call_api("getCallbackQueryAnswer", {
-      chat_id: chat_id,
-      message_id: message_id,
-      callback_data: callback_data,
+    return this.call_api('getCallbackQueryAnswer', {
+      chat_id: String(chat_id),
+      'el}': message_id,
+      'el}': callback_data,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Deletes all messages in the chat.
+   **ONLY FOR USERS*Deletes all messages in the chat.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    * @param {Object} more - delete_chat_history more params
    */
   async delete_chat_history(chat_id, more) {
-    return this.call_api("deleteChatHistory", {
-      chat_id: chat_id,
+    return this.call_api('deleteChatHistory', {
+      chat_id: String(chat_id),
       ...more,
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Returns all scheduled messages in a chat. The messages are returned in a reverse chronological order. Returns an array of `Message` on success.
+   **ONLY FOR USERS*Returns all scheduled messages in a chat. The messages are returned in a reverse chronological order. Returns an array of `Message` on success.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   async get_scheduled_messages(chat_id) {
-    return this.call_api("getScheduledMessages", {
-      chat_id: chat_id,
+    return this.call_api('getScheduledMessages', {
+      chat_id: String(chat_id),
     });
   }
 
   /**
-   **ONLY FOR USERS*
-   *
-   *Edits the time when a scheduled message will be sent. Scheduling state of all messages in the same album or forwarded together with the message will be also changed. Returns `true` on success.
+   **ONLY FOR USERS*Edits the time when a scheduled message will be sent. Scheduling state of all messages in the same album or forwarded together with the message will be also changed. Returns `true` on success.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {Integer} message_id - Message identifier in the chat specified in *from\_chat\_id*. Message IDs for scheduled messages are negative.
    * @param {Object} more - edit_message_scheduling more params
    */
   async edit_message_scheduling(chat_id, message_id, more) {
-    return this.call_api("editMessageScheduling", {
-      chat_id: chat_id,
-      message_id: message_id,
+    return this.call_api('editMessageScheduling', {
+      chat_id: String(chat_id),
+      'el}': message_id,
       ...more,
     });
+  }
+
+  /**
+   *Returns all configured proxies. Requires no parameters.
+   */
+  async get_proxies() {
+    return this.call_api('getProxies');
   }
 
   /**
@@ -341,10 +343,10 @@ class Api {
    * @param {Object} more - add_proxy more params
    */
   async add_proxy(server, port, type, more) {
-    return this.call_api("addProxy", {
-      server: server,
-      port: port,
-      type: type,
+    return this.call_api('addProxy', {
+      'el}': server,
+      'el}': port,
+      'el}': type,
       ...more,
     });
   }
@@ -354,8 +356,8 @@ class Api {
    *@param {Integer} proxy_id - The id that uniquely identifies that proxy server.
    */
   async delete_proxy(proxy_id) {
-    return this.call_api("deleteProxy", {
-      proxy_id: proxy_id,
+    return this.call_api('deleteProxy', {
+      'el}': proxy_id,
     });
   }
 
@@ -364,8 +366,8 @@ class Api {
    *@param {Integer} proxy_id - The id that uniquely identifies that proxy server.
    */
   async enable_proxy(proxy_id) {
-    return this.call_api("enableProxy", {
-      proxy_id: proxy_id,
+    return this.call_api('enableProxy', {
+      'el}': proxy_id,
     });
   }
 
@@ -374,23 +376,66 @@ class Api {
    *@param {Integer} proxy_id - The id that uniquely identifies that proxy server.
    */
   async disable_proxy(proxy_id) {
-    return this.call_api("disableProxy", {
-      proxy_id: proxy_id,
+    return this.call_api('disableProxy', {
+      'el}': proxy_id,
     });
   }
 
   /**
+   *Use this method to receive incoming updates using long polling ([wiki](https://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of [Update](https://core.telegram.org/bots/api/#update) objects is returned.
+   * @param {Object} more - get_updates more params
+   */
+  async get_updates(more) {
+    return this.call_api('getUpdates', more);
+  }
+
+  /**
    *Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized [Update](https://core.telegram.org/bots/api/#update). In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns *True* on success.
-   *
    *If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. `https://www.example.com/<token>`. Since nobody else knows your bot's token, you can be pretty sure it's us.
    *@param {String} url - HTTPS url to send updates to. Use an empty string to remove webhook integration
    * @param {Object} more - set_webhook more params
    */
   async set_webhook(url, more) {
-    return this.call_api("setWebhook", {
-      url: url,
+    return this.call_api('setWebhook', {
+      'el}': url,
       ...more,
     });
+  }
+
+  /**
+   *Use this method to remove webhook integration if you decide to switch back to [getUpdates](https://core.telegram.org/bots/api/#getupdates). Returns *True* on success.
+   * @param {Object} more - delete_webhook more params
+   */
+  async delete_webhook(more) {
+    return this.call_api('deleteWebhook', more);
+  }
+
+  /**
+   *Use this method to get current webhook status. Requires no parameters. On success, returns a [WebhookInfo](https://core.telegram.org/bots/api/#webhookinfo) object. If the bot is using [getUpdates](https://core.telegram.org/bots/api/#getupdates), will return an object with the *url* field empty.
+   */
+  async get_webhook_info() {
+    return this.call_api('getWebhookInfo');
+  }
+
+  /**
+   *A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a [User](https://core.telegram.org/bots/api/#user) object.
+   */
+  async get_me() {
+    return this.call_api('getMe');
+  }
+
+  /**
+   *Use this method to log out from the cloud Bot API server before launching the bot locally. You **must** log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns *True* on success. Requires no parameters.
+   */
+  async log_out() {
+    return this.call_api('logOut');
+  }
+
+  /**
+   *Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns *True* on success. Requires no parameters.
+   */
+  async close() {
+    return this.call_api('close');
   }
 
   /**
@@ -400,9 +445,24 @@ class Api {
    * @param {Object} more - send_message more params
    */
   async send_message(chat_id, text, more) {
-    return this.call_api("sendMessage", {
-      chat_id: chat_id,
-      text: text,
+    if (typeof text !== 'string') {
+      if (typeof text == 'object') {
+        if (text instanceof Context) {
+          text = text.toJSON(null, 2);
+        } else if (text instanceof Bot) {
+          text = {};
+        } else if (text instanceof Api) {
+          text = {};
+        } else {
+          text = JSON.stringify(text, null, 2);
+        }
+      } else {
+        text = String(text);
+      }
+    }
+    return this.call_api('sendMessage', {
+      chat_id: String(chat_id),
+      'el}': text,
       ...more,
     });
   }
@@ -415,10 +475,10 @@ class Api {
    * @param {Object} more - forward_message more params
    */
   async forward_message(chat_id, from_chat_id, message_id, more) {
-    return this.call_api("forwardMessage", {
-      chat_id: chat_id,
-      from_chat_id: from_chat_id,
-      message_id: message_id,
+    return this.call_api('forwardMessage', {
+      chat_id: String(chat_id),
+      'el}': from_chat_id,
+      'el}': message_id,
       ...more,
     });
   }
@@ -431,10 +491,10 @@ class Api {
    * @param {Object} more - copy_message more params
    */
   async copy_message(chat_id, from_chat_id, message_id, more) {
-    return this.call_api("copyMessage", {
-      chat_id: chat_id,
-      from_chat_id: from_chat_id,
-      message_id: message_id,
+    return this.call_api('copyMessage', {
+      chat_id: String(chat_id),
+      'el}': from_chat_id,
+      'el}': message_id,
       ...more,
     });
   }
@@ -446,25 +506,24 @@ class Api {
    * @param {Object} more - send_photo more params
    */
   async send_photo(chat_id, photo, more) {
-    return this.call_api("sendPhoto", {
-      chat_id: chat_id,
-      photo: photo,
+    return this.call_api('sendPhoto', {
+      chat_id: String(chat_id),
+      'el}': photo,
       ...more,
     });
   }
 
   /**
    *Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
-   *
    *For sending voice messages, use the [sendVoice](https://core.telegram.org/bots/api/#sendvoice) method instead.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {Object|String} audio - Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    * @param {Object} more - send_audio more params
    */
   async send_audio(chat_id, audio, more) {
-    return this.call_api("sendAudio", {
-      chat_id: chat_id,
-      audio: audio,
+    return this.call_api('sendAudio', {
+      chat_id: String(chat_id),
+      'el}': audio,
       ...more,
     });
   }
@@ -476,9 +535,9 @@ class Api {
    * @param {Object} more - send_document more params
    */
   async send_document(chat_id, document, more) {
-    return this.call_api("sendDocument", {
-      chat_id: chat_id,
-      document: document,
+    return this.call_api('sendDocument', {
+      chat_id: String(chat_id),
+      'el}': document,
       ...more,
     });
   }
@@ -490,9 +549,9 @@ class Api {
    * @param {Object} more - send_video more params
    */
   async send_video(chat_id, video, more) {
-    return this.call_api("sendVideo", {
-      chat_id: chat_id,
-      video: video,
+    return this.call_api('sendVideo', {
+      chat_id: String(chat_id),
+      'el}': video,
       ...more,
     });
   }
@@ -504,9 +563,9 @@ class Api {
    * @param {Object} more - send_animation more params
    */
   async send_animation(chat_id, animation, more) {
-    return this.call_api("sendAnimation", {
-      chat_id: chat_id,
-      animation: animation,
+    return this.call_api('sendAnimation', {
+      chat_id: String(chat_id),
+      'el}': animation,
       ...more,
     });
   }
@@ -518,9 +577,9 @@ class Api {
    * @param {Object} more - send_voice more params
    */
   async send_voice(chat_id, voice, more) {
-    return this.call_api("sendVoice", {
-      chat_id: chat_id,
-      voice: voice,
+    return this.call_api('sendVoice', {
+      chat_id: String(chat_id),
+      'el}': voice,
       ...more,
     });
   }
@@ -532,9 +591,9 @@ class Api {
    * @param {Object} more - send_video_note more params
    */
   async send_video_note(chat_id, video_note, more) {
-    return this.call_api("sendVideoNote", {
-      chat_id: chat_id,
-      video_note: video_note,
+    return this.call_api('sendVideoNote', {
+      chat_id: String(chat_id),
+      'el}': video_note,
       ...more,
     });
   }
@@ -546,9 +605,9 @@ class Api {
    * @param {Object} more - send_media_group more params
    */
   async send_media_group(chat_id, media, more) {
-    return this.call_api("sendMediaGroup", {
-      chat_id: chat_id,
-      media: media,
+    return this.call_api('sendMediaGroup', {
+      chat_id: String(chat_id),
+      'el}': media,
       ...more,
     });
   }
@@ -561,10 +620,10 @@ class Api {
    * @param {Object} more - send_location more params
    */
   async send_location(chat_id, latitude, longitude, more) {
-    return this.call_api("sendLocation", {
-      chat_id: chat_id,
-      latitude: latitude,
-      longitude: longitude,
+    return this.call_api('sendLocation', {
+      chat_id: String(chat_id),
+      'el}': latitude,
+      'el}': longitude,
       ...more,
     });
   }
@@ -576,11 +635,19 @@ class Api {
    * @param {Object} more - edit_message_live_location more params
    */
   async edit_message_live_location(latitude, longitude, more) {
-    return this.call_api("editMessageLiveLocation", {
-      latitude: latitude,
-      longitude: longitude,
+    return this.call_api('editMessageLiveLocation', {
+      'el}': latitude,
+      'el}': longitude,
       ...more,
     });
+  }
+
+  /**
+   *Use this method to stop updating a live location message before *live\_period* expires. On success, if the message was sent by the bot, the sent [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * @param {Object} more - stop_message_live_location more params
+   */
+  async stop_message_live_location(more) {
+    return this.call_api('stopMessageLiveLocation', more);
   }
 
   /**
@@ -593,12 +660,12 @@ class Api {
    * @param {Object} more - send_venue more params
    */
   async send_venue(chat_id, latitude, longitude, title, address, more) {
-    return this.call_api("sendVenue", {
-      chat_id: chat_id,
-      latitude: latitude,
-      longitude: longitude,
-      title: title,
-      address: address,
+    return this.call_api('sendVenue', {
+      chat_id: String(chat_id),
+      'el}': latitude,
+      'el}': longitude,
+      'el}': title,
+      'el}': address,
       ...more,
     });
   }
@@ -611,10 +678,10 @@ class Api {
    * @param {Object} more - send_contact more params
    */
   async send_contact(chat_id, phone_number, first_name, more) {
-    return this.call_api("sendContact", {
-      chat_id: chat_id,
-      phone_number: phone_number,
-      first_name: first_name,
+    return this.call_api('sendContact', {
+      chat_id: String(chat_id),
+      'el}': phone_number,
+      'el}': first_name,
       ...more,
     });
   }
@@ -627,10 +694,10 @@ class Api {
    * @param {Object} more - send_poll more params
    */
   async send_poll(chat_id, question, options, more) {
-    return this.call_api("sendPoll", {
-      chat_id: chat_id,
-      question: question,
-      options: options,
+    return this.call_api('sendPoll', {
+      chat_id: String(chat_id),
+      'el}': question,
+      'el}': options,
       ...more,
     });
   }
@@ -641,25 +708,23 @@ class Api {
    * @param {Object} more - send_dice more params
    */
   async send_dice(chat_id, more) {
-    return this.call_api("sendDice", {
-      chat_id: chat_id,
+    return this.call_api('sendDice', {
+      chat_id: String(chat_id),
       ...more,
     });
   }
 
   /**
    *Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns *True* on success.
-   *
    *Example: The [ImageBot](https://t.me/imagebot) needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use [sendChatAction](https://core.telegram.org/bots/api/#sendchataction) with *action* = *upload\_photo*. The user will see a “sending photo” status for the bot.
-   *
    *We only recommend using this method when a response from the bot will take a **noticeable** amount of time to arrive.
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    *@param {String} action - Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
    */
   async send_chat_action(chat_id, action) {
-    return this.call_api("sendChatAction", {
-      chat_id: chat_id,
-      action: action,
+    return this.call_api('sendChatAction', {
+      chat_id: String(chat_id),
+      'el}': action,
     });
   }
 
@@ -669,8 +734,8 @@ class Api {
    * @param {Object} more - get_user_profile_photos more params
    */
   async get_user_profile_photos(user_id, more) {
-    return this.call_api("getUserProfilePhotos", {
-      user_id: user_id,
+    return this.call_api('getUserProfilePhotos', {
+      'el}': user_id,
       ...more,
     });
   }
@@ -680,8 +745,8 @@ class Api {
    *@param {String} file_id - File identifier to get info about
    */
   async get_file(file_id) {
-    return this.call_api("getFile", {
-      file_id: file_id,
+    return this.call_api('getFile', {
+      'el}': file_id,
     });
   }
 
@@ -692,9 +757,9 @@ class Api {
    * @param {Object} more - kick_chat_member more params
    */
   async kick_chat_member(chat_id, user_id, more) {
-    return this.call_api("kickChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
+    return this.call_api('kickChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
       ...more,
     });
   }
@@ -706,9 +771,9 @@ class Api {
    * @param {Object} more - unban_chat_member more params
    */
   async unban_chat_member(chat_id, user_id, more) {
-    return this.call_api("unbanChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
+    return this.call_api('unbanChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
       ...more,
     });
   }
@@ -721,10 +786,10 @@ class Api {
    * @param {Object} more - restrict_chat_member more params
    */
   async restrict_chat_member(chat_id, user_id, permissions, more) {
-    return this.call_api("restrictChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
-      permissions: permissions,
+    return this.call_api('restrictChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
+      'el}': permissions,
       ...more,
     });
   }
@@ -736,9 +801,9 @@ class Api {
    * @param {Object} more - promote_chat_member more params
    */
   async promote_chat_member(chat_id, user_id, more) {
-    return this.call_api("promoteChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
+    return this.call_api('promoteChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
       ...more,
     });
   }
@@ -750,10 +815,10 @@ class Api {
    *@param {String} custom_title - New custom title for the administrator; 0-16 characters, emoji are not allowed
    */
   async set_chat_administrator_custom_title(chat_id, user_id, custom_title) {
-    return this.call_api("setChatAdministratorCustomTitle", {
-      chat_id: chat_id,
-      user_id: user_id,
-      custom_title: custom_title,
+    return this.call_api('setChatAdministratorCustomTitle', {
+      chat_id: String(chat_id),
+      'el}': user_id,
+      'el}': custom_title,
     });
   }
 
@@ -763,9 +828,9 @@ class Api {
    *@param {} permissions -
    */
   async set_chat_permissions(chat_id, permissions) {
-    return this.call_api("setChatPermissions", {
-      chat_id: chat_id,
-      permissions: permissions,
+    return this.call_api('setChatPermissions', {
+      chat_id: String(chat_id),
+      'el}': permissions,
     });
   }
 
@@ -774,8 +839,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   async export_chat_invite_link(chat_id) {
-    return this.call_api("exportChatInviteLink", {
-      chat_id: chat_id,
+    return this.call_api('exportChatInviteLink', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -785,9 +850,9 @@ class Api {
    *@param {} photo -
    */
   async set_chat_photo(chat_id, photo) {
-    return this.call_api("setChatPhoto", {
-      chat_id: chat_id,
-      photo: photo,
+    return this.call_api('setChatPhoto', {
+      chat_id: String(chat_id),
+      'el}': photo,
     });
   }
 
@@ -796,8 +861,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   async delete_chat_photo(chat_id) {
-    return this.call_api("deleteChatPhoto", {
-      chat_id: chat_id,
+    return this.call_api('deleteChatPhoto', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -807,9 +872,9 @@ class Api {
    *@param {String} title - New chat title, 1-255 characters
    */
   async set_chat_title(chat_id, title) {
-    return this.call_api("setChatTitle", {
-      chat_id: chat_id,
-      title: title,
+    return this.call_api('setChatTitle', {
+      chat_id: String(chat_id),
+      'el}': title,
     });
   }
 
@@ -819,8 +884,8 @@ class Api {
    * @param {Object} more - set_chat_description more params
    */
   async set_chat_description(chat_id, more) {
-    return this.call_api("setChatDescription", {
-      chat_id: chat_id,
+    return this.call_api('setChatDescription', {
+      chat_id: String(chat_id),
       ...more,
     });
   }
@@ -832,9 +897,9 @@ class Api {
    * @param {Object} more - pin_chat_message more params
    */
   async pin_chat_message(chat_id, message_id, more) {
-    return this.call_api("pinChatMessage", {
-      chat_id: chat_id,
-      message_id: message_id,
+    return this.call_api('pinChatMessage', {
+      chat_id: String(chat_id),
+      'el}': message_id,
       ...more,
     });
   }
@@ -845,8 +910,8 @@ class Api {
    * @param {Object} more - unpin_chat_message more params
    */
   async unpin_chat_message(chat_id, more) {
-    return this.call_api("unpinChatMessage", {
-      chat_id: chat_id,
+    return this.call_api('unpinChatMessage', {
+      chat_id: String(chat_id),
       ...more,
     });
   }
@@ -856,8 +921,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   async unpin_all_chat_messages(chat_id) {
-    return this.call_api("unpinAllChatMessages", {
-      chat_id: chat_id,
+    return this.call_api('unpinAllChatMessages', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -866,8 +931,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    */
   async leave_chat(chat_id) {
-    return this.call_api("leaveChat", {
-      chat_id: chat_id,
+    return this.call_api('leaveChat', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -876,8 +941,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    */
   async get_chat(chat_id) {
-    return this.call_api("getChat", {
-      chat_id: chat_id,
+    return this.call_api('getChat', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -886,8 +951,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    */
   async get_chat_administrators(chat_id) {
-    return this.call_api("getChatAdministrators", {
-      chat_id: chat_id,
+    return this.call_api('getChatAdministrators', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -896,8 +961,8 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    */
   async get_chat_members_count(chat_id) {
-    return this.call_api("getChatMembersCount", {
-      chat_id: chat_id,
+    return this.call_api('getChatMembersCount', {
+      chat_id: String(chat_id),
     });
   }
 
@@ -907,9 +972,9 @@ class Api {
    *@param {Integer} user_id - Unique identifier of the target user
    */
   async get_chat_member(chat_id, user_id) {
-    return this.call_api("getChatMember", {
-      chat_id: chat_id,
-      user_id: user_id,
+    return this.call_api('getChatMember', {
+      chat_id: String(chat_id),
+      'el}': user_id,
     });
   }
 
@@ -919,9 +984,9 @@ class Api {
    *@param {String} sticker_set_name - Name of the sticker set to be set as the group sticker set
    */
   async set_chat_sticker_set(chat_id, sticker_set_name) {
-    return this.call_api("setChatStickerSet", {
-      chat_id: chat_id,
-      sticker_set_name: sticker_set_name,
+    return this.call_api('setChatStickerSet', {
+      chat_id: String(chat_id),
+      'el}': sticker_set_name,
     });
   }
 
@@ -930,21 +995,20 @@ class Api {
    *@param {Integer|String} chat_id - Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
   async delete_chat_sticker_set(chat_id) {
-    return this.call_api("deleteChatStickerSet", {
-      chat_id: chat_id,
+    return this.call_api('deleteChatStickerSet', {
+      chat_id: String(chat_id),
     });
   }
 
   /**
    *Use this method to send answers to callback queries sent from [inline keyboards](/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
-   *
    *Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@Botfather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
    *@param {String} callback_query_id - Unique identifier for the query to be answered
    * @param {Object} more - answer_callback_query more params
    */
   async answer_callback_query(callback_query_id, more) {
-    return this.call_api("answerCallbackQuery", {
-      callback_query_id: callback_query_id,
+    return this.call_api('answerCallbackQuery', {
+      'el}': callback_query_id,
       ...more,
     });
   }
@@ -954,9 +1018,16 @@ class Api {
    *@param {Array} commands - A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    */
   async set_my_commands(commands) {
-    return this.call_api("setMyCommands", {
-      commands: commands,
+    return this.call_api('setMyCommands', {
+      'el}': commands,
     });
+  }
+
+  /**
+   *Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of [BotCommand](https://core.telegram.org/bots/api/#botcommand) on success.
+   */
+  async get_my_commands() {
+    return this.call_api('getMyCommands');
   }
 
   /**
@@ -965,10 +1036,33 @@ class Api {
    * @param {Object} more - edit_message_text more params
    */
   async edit_message_text(text, more) {
-    return this.call_api("editMessageText", {
-      text: text,
+    if (typeof text !== 'string') {
+      if (typeof text == 'object') {
+        if (text instanceof Context) {
+          text = text.toJSON(null, 2);
+        } else if (text instanceof Bot) {
+          text = {};
+        } else if (text instanceof Api) {
+          text = {};
+        } else {
+          text = JSON.stringify(text, null, 2);
+        }
+      } else {
+        text = String(text);
+      }
+    }
+    return this.call_api('editMessageText', {
+      'el}': text,
       ...more,
     });
+  }
+
+  /**
+   *Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * @param {Object} more - edit_message_caption more params
+   */
+  async edit_message_caption(more) {
+    return this.call_api('editMessageCaption', more);
   }
 
   /**
@@ -977,10 +1071,18 @@ class Api {
    * @param {Object} more - edit_message_media more params
    */
   async edit_message_media(media, more) {
-    return this.call_api("editMessageMedia", {
-      media: media,
+    return this.call_api('editMessageMedia', {
+      'el}': media,
       ...more,
     });
+  }
+
+  /**
+   *Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * @param {Object} more - edit_message_reply_markup more params
+   */
+  async edit_message_reply_markup(more) {
+    return this.call_api('editMessageReplyMarkup', more);
   }
 
   /**
@@ -990,9 +1092,9 @@ class Api {
    * @param {Object} more - stop_poll more params
    */
   async stop_poll(chat_id, message_id, more) {
-    return this.call_api("stopPoll", {
-      chat_id: chat_id,
-      message_id: message_id,
+    return this.call_api('stopPoll', {
+      chat_id: String(chat_id),
+      'el}': message_id,
       ...more,
     });
   }
@@ -1011,9 +1113,9 @@ class Api {
    *@param {Integer} message_id - Identifier of the message to delete
    */
   async delete_message(chat_id, message_id) {
-    return this.call_api("deleteMessage", {
-      chat_id: chat_id,
-      message_id: message_id,
+    return this.call_api('deleteMessage', {
+      chat_id: String(chat_id),
+      'el}': message_id,
     });
   }
 
@@ -1024,9 +1126,9 @@ class Api {
    * @param {Object} more - send_sticker more params
    */
   async send_sticker(chat_id, sticker, more) {
-    return this.call_api("sendSticker", {
-      chat_id: chat_id,
-      sticker: sticker,
+    return this.call_api('sendSticker', {
+      chat_id: String(chat_id),
+      'el}': sticker,
       ...more,
     });
   }
@@ -1036,8 +1138,8 @@ class Api {
    *@param {String} name - Name of the sticker set
    */
   async get_sticker_set(name) {
-    return this.call_api("getStickerSet", {
-      name: name,
+    return this.call_api('getStickerSet', {
+      'el}': name,
     });
   }
 
@@ -1047,9 +1149,9 @@ class Api {
    *@param {} png_sticker -
    */
   async upload_sticker_file(user_id, png_sticker) {
-    return this.call_api("uploadStickerFile", {
-      user_id: user_id,
-      png_sticker: png_sticker,
+    return this.call_api('uploadStickerFile', {
+      'el}': user_id,
+      'el}': png_sticker,
     });
   }
 
@@ -1062,11 +1164,11 @@ class Api {
    * @param {Object} more - create_new_sticker_set more params
    */
   async create_new_sticker_set(user_id, name, title, emojis, more) {
-    return this.call_api("createNewStickerSet", {
-      user_id: user_id,
-      name: name,
-      title: title,
-      emojis: emojis,
+    return this.call_api('createNewStickerSet', {
+      'el}': user_id,
+      'el}': name,
+      'el}': title,
+      'el}': emojis,
       ...more,
     });
   }
@@ -1079,10 +1181,10 @@ class Api {
    * @param {Object} more - add_sticker_to_set more params
    */
   async add_sticker_to_set(user_id, name, emojis, more) {
-    return this.call_api("addStickerToSet", {
-      user_id: user_id,
-      name: name,
-      emojis: emojis,
+    return this.call_api('addStickerToSet', {
+      'el}': user_id,
+      'el}': name,
+      'el}': emojis,
       ...more,
     });
   }
@@ -1093,9 +1195,9 @@ class Api {
    *@param {Integer} position - New sticker position in the set, zero-based
    */
   async set_sticker_position_in_set(sticker, position) {
-    return this.call_api("setStickerPositionInSet", {
-      sticker: sticker,
-      position: position,
+    return this.call_api('setStickerPositionInSet', {
+      'el}': sticker,
+      'el}': position,
     });
   }
 
@@ -1104,8 +1206,8 @@ class Api {
    *@param {String} sticker - File identifier of the sticker
    */
   async delete_sticker_from_set(sticker) {
-    return this.call_api("deleteStickerFromSet", {
-      sticker: sticker,
+    return this.call_api('deleteStickerFromSet', {
+      'el}': sticker,
     });
   }
 
@@ -1116,9 +1218,9 @@ class Api {
    * @param {Object} more - set_sticker_set_thumb more params
    */
   async set_sticker_set_thumb(name, user_id, more) {
-    return this.call_api("setStickerSetThumb", {
-      name: name,
-      user_id: user_id,
+    return this.call_api('setStickerSetThumb', {
+      'el}': name,
+      'el}': user_id,
       ...more,
     });
   }
@@ -1131,9 +1233,9 @@ class Api {
    * @param {Object} more - answer_inline_query more params
    */
   async answer_inline_query(inline_query_id, results, more) {
-    return this.call_api("answerInlineQuery", {
-      inline_query_id: inline_query_id,
-      results: results,
+    return this.call_api('answerInlineQuery', {
+      'el}': inline_query_id,
+      'el}': results,
       ...more,
     });
   }
@@ -1161,15 +1263,15 @@ class Api {
     prices,
     more
   ) {
-    return this.call_api("sendInvoice", {
-      chat_id: chat_id,
-      title: title,
-      description: description,
-      payload: payload,
-      provider_token: provider_token,
-      start_parameter: start_parameter,
-      currency: currency,
-      prices: prices,
+    return this.call_api('sendInvoice', {
+      chat_id: String(chat_id),
+      'el}': title,
+      'el}': description,
+      'el}': payload,
+      'el}': provider_token,
+      'el}': start_parameter,
+      'el}': currency,
+      'el}': prices,
       ...more,
     });
   }
@@ -1181,9 +1283,9 @@ class Api {
    * @param {Object} more - answer_shipping_query more params
    */
   async answer_shipping_query(shipping_query_id, ok, more) {
-    return this.call_api("answerShippingQuery", {
-      shipping_query_id: shipping_query_id,
-      ok: ok,
+    return this.call_api('answerShippingQuery', {
+      'el}': shipping_query_id,
+      'el}': ok,
       ...more,
     });
   }
@@ -1195,24 +1297,23 @@ class Api {
    * @param {Object} more - answer_pre_checkout_query more params
    */
   async answer_pre_checkout_query(pre_checkout_query_id, ok, more) {
-    return this.call_api("answerPreCheckoutQuery", {
-      pre_checkout_query_id: pre_checkout_query_id,
-      ok: ok,
+    return this.call_api('answerPreCheckoutQuery', {
+      'el}': pre_checkout_query_id,
+      'el}': ok,
       ...more,
     });
   }
 
   /**
    *Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns *True* on success.
-   *
    *Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
    *@param {Integer} user_id - User identifier
    *@param {Array} errors - A JSON-serialized array describing the errors
    */
   async set_passport_data_errors(user_id, errors) {
-    return this.call_api("setPassportDataErrors", {
-      user_id: user_id,
-      errors: errors,
+    return this.call_api('setPassportDataErrors', {
+      'el}': user_id,
+      'el}': errors,
     });
   }
 
@@ -1223,9 +1324,9 @@ class Api {
    * @param {Object} more - send_game more params
    */
   async send_game(chat_id, game_short_name, more) {
-    return this.call_api("sendGame", {
-      chat_id: chat_id,
-      game_short_name: game_short_name,
+    return this.call_api('sendGame', {
+      chat_id: String(chat_id),
+      'el}': game_short_name,
       ...more,
     });
   }
@@ -1237,24 +1338,30 @@ class Api {
    * @param {Object} more - set_game_score more params
    */
   async set_game_score(user_id, score, more) {
-    return this.call_api("setGameScore", {
-      user_id: user_id,
-      score: score,
+    return this.call_api('setGameScore', {
+      'el}': user_id,
+      'el}': score,
       ...more,
     });
   }
 
   /**
    *Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an *Array* of [GameHighScore](https://core.telegram.org/bots/api/#gamehighscore) objects.
-   *
    *This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change.
    *@param {Integer} user_id - Target user id
    * @param {Object} more - get_game_high_scores more params
    */
   async get_game_high_scores(user_id, more) {
-    return this.call_api("getGameHighScores", {
-      user_id: user_id,
+    return this.call_api('getGameHighScores', {
+      'el}': user_id,
       ...more,
     });
+  }
+
+  /**
+   *Get the memory your bot is needing.
+   */
+  async get_memory_stats() {
+    return this.call_api('getMemoryStats');
   }
 }
