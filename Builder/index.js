@@ -24,7 +24,7 @@ const fs = require('fs');
   text +=
     '\n/**\n   * Sending request to telegram.rest\n   * @param {String} method - Method name which available on telegram.rest\n   * @param {Object} body - Body parameters for sending request to telegram.rest\n  */\n  async call_api(method,body={}){\n    let fetch = await UrlFetchApp.fetch(`${this.baseUrl}${decrypt(this.token)}/${method}`,{\n      method : "POST",\n      payload : body\n    });\n    let json = JSON.parse(fetch); \n    if(json.ok){\n      return new Context(json.result,this);\n    }\n  } ';
   let docs = `<center><b>NextGram</b></center></br>\n</br><i>This docs is auto generate</i></br>\n\n<i>Create At ${new Date().toUTCString()}</i>   `;
-  docs += `<i>Maybe some docs and funcion is broken.</i>  `;
+  docs += `<i>Maybe some docs and function is broken.</i>  `;
   for (let props of Object.keys(functionList)) {
     let functionName = camelToSnakeCase(props.replace('/', ''));
     console.log(new Date().toLocaleTimeString(), '-', 'Create Docs and Function - ', functionName);
