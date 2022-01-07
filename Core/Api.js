@@ -5,7 +5,7 @@
 // It under the terms of the MIT License as published.
 
 // This file is auto generate
-// Create At Tue, 09 Nov 2021 09:12:16 GMT
+// Create At Fri, 07 Jan 2022 07:42:50 GMT
 
 class Api {
   constructor(token, loginAs) {

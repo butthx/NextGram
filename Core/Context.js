@@ -6,7 +6,7 @@
 'use-strict';
 
 // This file is auto generate
-// Create At Tue, 09 Nov 2021 09:12:16 GMT
+// Create At Fri, 07 Jan 2022 07:42:50 GMT
 
 class Context {
   constructor(update, api) {
@@ -219,11 +219,8 @@ class Context {
     }
     return this.send_message;
   }
-  async forward_message(from_chat_id, message_id, more) {
-    if (this.chat) {
-      return this.telegram.forward_message(this.chat.id, from_chat_id, message_id, more);
-    }
-    return this.forward_message;
+  async forward_message(chat_id, from_chat_id, message_id, more) {
+    return this.telegram.forward_message(chat_id, from_chat_id, message_id, more);
   }
   async copy_message(from_chat_id, message_id, more) {
     if (this.chat) {

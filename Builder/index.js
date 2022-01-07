@@ -24,13 +24,13 @@ const fs = require('fs');
   text +=
     '\n/**\n   * Sending request to telegram.rest\n   * @param {String} method - Method name which available on telegram.rest\n   * @param {Object} body - Body parameters for sending request to telegram.rest\n  */\n  async call_api(method,body={}){\n    let fetch = await UrlFetchApp.fetch(`${this.baseUrl}${decrypt(this.token)}/${method}`,{\n      method : "POST",\n      payload : body\n    });\n    let json = JSON.parse(fetch); \n    if(json.ok){\n      return new Context(json.result,this);\n    }\n  } ';
   let docs = `<center><b>NextGram</b></center></br>\n</br><i>This docs is auto generate</i></br>\n\n<i>Create At ${new Date().toUTCString()}</i>   `;
-  docs += `<i>Maybe some docs and fun is broken.</i>  `;
+  docs += `<i>Maybe some docs and funcion is broken.</i>  `;
   for (let props of Object.keys(functionList)) {
     let functionName = camelToSnakeCase(props.replace('/', ''));
     console.log(new Date().toLocaleTimeString(), '-', 'Create Docs and Function - ', functionName);
-    docs += `\n## ${functionName}`;
+    docs += `\n## ${fixMD(functionName)}`;
     let desc = functionList[props]['post']['description'];
-    docs += `\n<i>${desc}</i>   `;
+    docs += `\n<i>${fixMD(desc)}</i>   `;
     let requestBody = functionList[props]['post']['requestBody'];
     if (requestBody) {
       let content = requestBody['content'];
@@ -60,8 +60,8 @@ const fs = require('fs');
                   let type = properties[el]['type'] || properties[el]['anyOf'];
                   if (typeof type == 'string') {
                     type = type.replace(type[0], type[0].toUpperCase());
-                    docs += `\n- ${el} (_${type}_)   `;
-                    docs += `\n_${properties[el]['description'] || ' '}_  `;
+                    docs += `\n- ${fixMD(el)} (<i>${fixMD(type)}</i>)   `;
+                    docs += `\n<i>${fixMD(properties[el]['description'] || ' ')}</i>  `;
                   } else {
                     let h = [];
                     if (Array.isArray(type)) {
@@ -74,27 +74,28 @@ const fs = require('fs');
                       });
                     }
                     type = h.join('|');
-                    docs += `\n- ${el} (_${type}_)   `;
-                    docs += `\n_${properties[el]['description'] || ' '}_  `;
+                    docs += `\n- ${fixMD(el)} (<i>${fixMD(type)}</i>)   `;
+                    docs += `\n_${fixMD(properties[el]['description'] || ' ')}_  `;
                   }
                   cm += `\n*@param {${type}} ${el} - ${properties[el]['description'] || ' '}`;
                 });
                 if (m.length > required.length) {
                   k.push('...more');
                   cm += `\n* @param {Object} more - ${functionName} more params`;
-                  docs += `\n- more (_Object_)   `;
+                  docs += `\n- more (<i>Object</i>)   `;
                   let gh = [];
                   m.forEach((el) => {
                     if (!required.includes(el)) {
                       gh.push(el);
                     }
                   });
-                  docs += `\nJSON Object of (${gh.join(',')})   `;
+                  docs += `\nJSON Object of (${fixMD(gh.join(','))})   `;
                 }
                 cm += '\n*/';
                 let bb = `if(typeof text !== "string"){      if(typeof text == "object"){        if(text instanceof Context){          text = text.toJSON(null,2)        }else if(text instanceof Bot){          text = {}        }else if(text instanceof Api){          text = {}        }else{          text = JSON.stringify(text,null,2)        }      }else{        text = String(text)      }    }`;
                 let pp = ['send_message', 'edit_message_text'];
-                if (required[0] == 'chat_id') {
+                let igr = ['forward_messages', 'forward_message'];
+                if (required[0] == 'chat_id' && !igr.includes(functionName)) {
                   let y = [...required];
                   y.splice(0, 1);
                   ctx += `\nasync ${functionName}(${y.join(
@@ -117,7 +118,7 @@ const fs = require('fs');
                   let cm = `\n/**\n*${desc.replace(/\n/gm, '\n*').replace(/\*\n/gm, '')}`;
                   docs += `\n\`\`\`javascript\n ctx.telegram.${functionName}(more)\n\`\`\`   `;
                   cm += `\n* @param {Object} more - ${functionName} more params`;
-                  docs += `\n- more (_Object_)   `;
+                  docs += `\n- more (<i>Object</i>)   `;
                   cm += '\n*/';
                   ctx += `\nasync ${functionName}(more){\nreturn this.telegram.${functionName}(more)}`;
                   text += `\n${cm}\nasync ${functionName}(more){\n    return this.call_api("${props.replace(
@@ -150,3 +151,24 @@ const fs = require('fs');
   //console.log(text)
   console.log(new Date().toLocaleTimeString(), '-', 'Finish');
 })();
+function fixMD(text) {
+  return (
+    text
+      //.replace(/\*/gm, '\\*')
+      //.replace(/\[/gm, '\\[')
+      //.replace(/\]/gm, '\\]')
+      //.replace(/\(/gm, '\\(')
+      //.replace(/\)/gm, '\\)')
+      .replace(/\~/gm, '\\~')
+      //.replace(/\`/gm, '\\`')
+      .replace(/\#/gm, '\\#')
+      .replace(/\+/gm, '\\+')
+      .replace(/\_/gm, '\\_')
+      .replace(/\-/gm, '\\-')
+      .replace(/\=/gm, '\\=')
+      .replace(/\|/gm, '\\|')
+      .replace(/\{/gm, '\\{')
+      .replace(/\}/gm, '\\}')
+  );
+  //.replace(/\./gm, '\\.')
+}

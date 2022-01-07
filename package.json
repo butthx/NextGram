@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:butthx/NextGram",
-  "author": "butthx <tanya.duwi23@gmail.com>",
+  "author": "butthx",
   "license": "MIT",
-  "scripts" : {
-    "prettier" : "prettier -w ./**/**.js"
+  "scripts": {
+    "prettier": "prettier -w ./**/**.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
